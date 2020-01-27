@@ -10,7 +10,7 @@
         </div>
         </div>
         <div>
-          <ul id="resultado">
+          <ul>
           </ul>
         </div>
     </div>
@@ -31,30 +31,12 @@
       </div>
       <div style="text-align:center;width:80%;font-size:30px;">
         <br>
-      <table class="table table-dark" style="border-radius: 30px;";> 
-         <tr style="color:darkorange">
-            <td>Nº Lamina</td>
-            <td>Nombre</td>
-            <td>Nº Sección</td>
-            <td>Sección</td>
-            <td>Opciones</td>
-          </tr>
-          
-      {{#each datos.laminas }}
-          <tr>
-            <td>{{ this.numero }}</td>
-            <td>{{ this.nombre }}</td>
-            <td>{{ this.numero_seccion }}</td>
-            <td>{{ this.seccion }}</td>
-            <td>
-                <input id="ide" type="hidden" value="{{ this._id }}">
-                <button  class="btn btn-danger"  style="text-align:center;width:80%;font-size:20px;" onclick="alerta('eliminar?ide={{ this._id }}');" >ELIMINAR</button>
-                <a  class="btn btn-warning" style="text-align:center;width:80%;font-size:20px;"href="modificar?ide={{ this._id }}">MODIFICAR</a>
-            </td>
-          </tr>
-      {{/each}}
-
+        
+      <table id="resultado" class="table table-dark" style="border-radius: 30px;";>
       </table>
+
+        
+      
       </div>
       <br>
       <br>
@@ -79,7 +61,7 @@ var datos  = [];
 for(var i= 0; i < nombres.split(",").length-1 ; i++) {
    datos.push(
      { 
-       "id":id.split(",")[i],
+       "id":id.split(",")[i].trim(),
        "nombre": nombres.split(",")[i],
        "numero": numero.split(",")[i],
        "numero_seccion": numero_seccion.split(",")[i],
@@ -99,17 +81,43 @@ const filtrar = () => {
     resultado.innerHTML = '';
     const texto = formulario.value.toLowerCase();
 
+    resultado.innerHTML += `
+            <tr style="color:darkorange">
+              <td>Nº Lamina</td>
+              <td>Nombre</td>
+              <td>Nº Sección</td>
+              <td>Sección</td>
+              <td>Opciones</td>
+            </tr>
+    
+    `;
     for (let producto of productos) {
         let nombre = producto.nombre.toLowerCase();
         if (nombre.indexOf(texto) !== -1) {
             resultado.innerHTML += ` 
-          <li>${producto.nombre}  ${producto.numero} ${producto.numero_seccion} ${producto.seccion}</li>
+
+          <tr>
+            <td>${producto.numero}</td>
+            <td>${producto.nombre}</td>
+            <td>${producto.numero_seccion}</td>
+            <td>${producto.seccion}</td>
+            <td>
+                <input id="ide" type="hidden" value="${ producto.id }">
+                <a  class="btn btn-danger"  style="text-align:center;width:80%;font-size:20px;" onclick="alerta('eliminar?ide=${producto.id}');" >ELIMINAR</a>
+                <a  class="btn btn-warning" style="text-align:center;width:80%;font-size:20px;"href="modificar?ide=${ producto.id }">MODIFICAR</a>
+            </td>
+          </tr>
           `
+
         }
     }
     if (resultado.innerHTML === '') {
         resultado.innerHTML += `
-        <li> Producto  no encontrado ...</li>
+        <tr> 
+          <td colspan="4">
+          Producto  no encontrado ...
+          </td>
+          </tr>
       `
     }
 }
@@ -117,7 +125,6 @@ const filtrar = () => {
 formulario.addEventListener('keyup', filtrar)
 
 filtrar();
-setProductos();
   
 </script>
       

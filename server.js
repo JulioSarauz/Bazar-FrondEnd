@@ -21,7 +21,6 @@ app.engine('hbs', hbs.__express);
 app.get('/', function(req, res) {
     const start = async() => {
         await lamina.getLaminas(0, 100).then(function(datos) {
-            console.log(datos.laminas);
             res.render('home', {
                 nombre: "laMinas",
                 datos: datos
