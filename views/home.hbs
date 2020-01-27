@@ -56,6 +56,7 @@ const numero = '{{#each datos.laminas }} {{ this.numero }}, {{/each}}';
 const nombres = '{{#each datos.laminas }} {{ this.nombre }}, {{/each}}';
 const numero_seccion = '{{#each datos.laminas }} {{ this.numero_seccion }}, {{/each}}';
 const seccion = '{{#each datos.laminas }} {{ this.seccion }}, {{/each}}';
+const stock = '{{#each datos.laminas }} {{ this.stock }}, {{/each}}';
 
 var datos  = [];
 for(var i= 0; i < nombres.split(",").length-1 ; i++) {
@@ -65,7 +66,8 @@ for(var i= 0; i < nombres.split(",").length-1 ; i++) {
        "nombre": nombres.split(",")[i],
        "numero": numero.split(",")[i],
        "numero_seccion": numero_seccion.split(",")[i],
-       "seccion": seccion.split(",")[i]
+       "seccion": seccion.split(",")[i],
+       "stock":stock.split(",")[i]
      }
      );
 }
@@ -87,6 +89,7 @@ const filtrar = () => {
               <td>Nombre</td>
               <td>Nº Sección</td>
               <td>Sección</td>
+              <td>Stock</td>
               <td>Opciones</td>
             </tr>
     
@@ -101,6 +104,7 @@ const filtrar = () => {
             <td>${producto.nombre}</td>
             <td>${producto.numero_seccion}</td>
             <td>${producto.seccion}</td>
+            <td>${producto.stock}</td>
             <td>
                 <input id="ide" type="hidden" value="${ producto.id }">
                 <a  class="btn btn-danger"  style="text-align:center;width:80%;font-size:20px;" onclick="alerta('eliminar?ide=${producto.id}');" >ELIMINAR</a>

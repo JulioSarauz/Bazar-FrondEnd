@@ -20,12 +20,13 @@ const getLaminas = async(min, max) => {
 
 
 
-const nuevaLamina = async(n1, n2, n3, n4) => {
+const nuevaLamina = async(n1, n2, n3, n4, n5) => {
     axios.post('https://bazarapi.herokuapp.com/Lamina', {
             numero: n1,
             nombre: n2,
             numero_seccion: n3,
-            seccion: n4
+            seccion: n4,
+            stock: n5
         })
         .then(function(response) {
             return response.data;
@@ -48,12 +49,13 @@ const eliminarLamina = async(ide) => {
 }
 
 
-const actualizarLamina = async(ide, n1, n2, n3, n4) => {
+const actualizarLamina = async(ide, n1, n2, n3, n4, n5) => {
     axios.put(`https://bazarapi.herokuapp.com/Lamina/${ide}`, {
             numero: n1,
             nombre: n2,
             numero_seccion: n3,
-            seccion: n4
+            seccion: n4,
+            stock: n5
         })
         .then(function(response) {
             return response.data;

@@ -40,7 +40,8 @@ app.get('/guardar', (req, res) => {
         let nom = req.query.nom;
         let num_sec = req.query.num_sec;
         let nom_sec = req.query.nom_sec;
-        let nuevalamina = await lamina.nuevaLamina(num, nom, num_sec, nom_sec).then(async function() {
+        let stock = req.query.stock;
+        let nuevalamina = await lamina.nuevaLamina(num, nom, num_sec, nom_sec, stock).then(async function() {
             var lam = await lamina.getLaminas(0, 100).then(async function(data) {
 
                 res.render('home', {
@@ -80,7 +81,8 @@ app.get('/modificar', (req, res) => {
                         n1: data.laminas[l].numero,
                         n2: data.laminas[l].nombre,
                         n3: data.laminas[l].numero_seccion,
-                        n4: data.laminas[l].seccion
+                        n4: data.laminas[l].seccion,
+                        n5: data.laminas[l].stock
                     });
                 }
             }
@@ -96,8 +98,9 @@ app.get('/actualizar', (req, res) => {
         let nom = req.query.nom;
         let num_sec = req.query.num_sec;
         let nom_sec = req.query.nom_sec;
+        let stock = req.query.stock;
 
-        let actualizarLamina = await lamina.actualizarLamina(id, num, nom, num_sec, nom_sec).then(async function() {
+        let actualizarLamina = await lamina.actualizarLamina(id, num, nom, num_sec, nom_sec, stock).then(async function() {
             var lam = await lamina.getLaminas(0, 100).then(async function get(data) {
                 res.render('home', {
                     nombre: "laMinas",
