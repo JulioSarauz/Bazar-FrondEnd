@@ -1,0 +1,124 @@
+
+  {{> header }}
+    {{> navbar }}
+
+    <div class="jumbotron" style="text-align:center;">
+        <h1 class="display-1"> {{ capitalizar nombre }}</h1><br>
+        <h4>BUSCAR POR NOMBRE DE LAMINA</h4>
+        <div style="padding-left:40%;">
+        <input type="text" id="formulario" class="form-control my-2" style="width:300px;">
+        </div>
+        </div>
+        <div>
+          <ul id="resultado">
+          </ul>
+        </div>
+    </div>
+
+
+<center>
+  
+
+      <a href="about">
+        <div id="button-container">
+        <div id="button" class="green">
+          <div id="order"><div id="order-line"></div><div id="order-line"></div></div>
+          <p>Nueva Lámina</p>
+        </div>
+      </a>  
+
+    
+      </div>
+      <div style="text-align:center;width:80%;font-size:30px;">
+        <br>
+      <table class="table table-dark" style="border-radius: 30px;";> 
+         <tr style="color:darkorange">
+            <td>Nº Lamina</td>
+            <td>Nombre</td>
+            <td>Nº Sección</td>
+            <td>Sección</td>
+            <td>Opciones</td>
+          </tr>
+          
+      {{#each datos.laminas }}
+          <tr>
+            <td>{{ this.numero }}</td>
+            <td>{{ this.nombre }}</td>
+            <td>{{ this.numero_seccion }}</td>
+            <td>{{ this.seccion }}</td>
+            <td>
+                <input id="ide" type="hidden" value="{{ this._id }}">
+                <button  class="btn btn-danger"  style="text-align:center;width:80%;font-size:20px;" onclick="alerta('eliminar?ide={{ this._id }}');" >ELIMINAR</button>
+                <a  class="btn btn-warning" style="text-align:center;width:80%;font-size:20px;"href="modificar?ide={{ this._id }}">MODIFICAR</a>
+            </td>
+          </tr>
+      {{/each}}
+
+      </table>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+    </center>  
+
+<script>
+
+
+const id = '{{#each datos.laminas }} {{ this._id }}, {{/each}}';
+const numero = '{{#each datos.laminas }} {{ this.numero }}, {{/each}}';
+const nombres = '{{#each datos.laminas }} {{ this.nombre }}, {{/each}}';
+const numero_seccion = '{{#each datos.laminas }} {{ this.numero_seccion }}, {{/each}}';
+const seccion = '{{#each datos.laminas }} {{ this.seccion }}, {{/each}}';
+
+var datos  = [];
+for(var i= 0; i < nombres.split(",").length-1 ; i++) {
+   datos.push(
+     { 
+       "id":id.split(",")[i],
+       "nombre": nombres.split(",")[i],
+       "numero": numero.split(",")[i],
+       "numero_seccion": numero_seccion.split(",")[i],
+       "seccion": seccion.split(",")[i]
+     }
+     );
+}
+const productos = datos;
+
+
+
+const formulario = document.querySelector('#formulario');
+const boton = document.querySelector('#boton');
+const resultado = document.querySelector('#resultado')
+
+const filtrar = () => {
+    resultado.innerHTML = '';
+    const texto = formulario.value.toLowerCase();
+
+    for (let producto of productos) {
+        let nombre = producto.nombre.toLowerCase();
+        if (nombre.indexOf(texto) !== -1) {
+            resultado.innerHTML += ` 
+          <li>${producto.nombre}  ${producto.numero} ${producto.numero_seccion} ${producto.seccion}</li>
+          `
+        }
+    }
+    if (resultado.innerHTML === '') {
+        resultado.innerHTML += `
+        <li> Producto  no encontrado ...</li>
+      `
+    }
+}
+
+formulario.addEventListener('keyup', filtrar)
+
+filtrar();
+setProductos();
+  
+</script>
+      
+{{> foder }}
