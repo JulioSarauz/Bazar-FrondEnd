@@ -4,7 +4,7 @@
 
     <div class="jumbotron" style="text-align:center;">
         <h1 class="display-1"> {{ capitalizar nombre }}</h1><br>
-        <h4>BUSCAR POR NOMBRE DE LAMINA</h4>
+        <h4 style="color:#FA5858;">BUSCAR LÁMINA POR NOMBRE</h4>
         <div style="padding-left:40%;">
         <input type="text" id="formulario" class="form-control my-2" style="width:300px;">
         </div>
@@ -81,6 +81,7 @@ const resultado = document.querySelector('#resultado')
 
 const filtrar = () => {
     resultado.innerHTML = '';
+    var vacio = 0;
     const texto = formulario.value.toLowerCase();
 
     resultado.innerHTML += `
@@ -97,6 +98,7 @@ const filtrar = () => {
     for (let producto of productos) {
         let nombre = producto.nombre.toLowerCase();
         if (nombre.indexOf(texto) !== -1) {
+            vacio = 1;
             resultado.innerHTML += ` 
 
           <tr>
@@ -107,19 +109,19 @@ const filtrar = () => {
             <td>${producto.stock}</td>
             <td>
                 <input id="ide" type="hidden" value="${ producto.id }">
-                <a  class="btn btn-danger"  style="text-align:center;width:80%;font-size:20px;" onclick="alerta('eliminar?ide=${producto.id}');" >ELIMINAR</a>
-                <a  class="btn btn-warning" style="text-align:center;width:80%;font-size:20px;"href="modificar?ide=${ producto.id }">MODIFICAR</a>
+                <a  class="btn btn-outline-danger"  style="text-align:center;width:50px;font-size:20px;" onclick="alerta('eliminar?ide=${producto.id}');" ><img src="assets/img/basura.png" width="30" height="40"></a>
+                <a  class="btn btn-outline-warning" style="text-align:center;width:50px;font-size:20px;"href="modificar?ide=${ producto.id }"><img src="assets/img/edit.png" width="30" height="40"></a>
             </td>
           </tr>
           `
 
         }
     }
-    if (resultado.innerHTML === '') {
-        resultado.innerHTML += `
+    if (vacio === 0) {
+        resultado.innerHTML = `
         <tr> 
           <td colspan="4">
-          Producto  no encontrado ...
+          Lámina no encontrada ...
           </td>
           </tr>
       `
