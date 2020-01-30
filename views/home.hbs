@@ -2,55 +2,47 @@
   {{> header }}
     {{> navbar }}
 
-    <div class="jumbotron" style="text-align:center;">
-        <h1 class="display-1"> {{ capitalizar nombre }}</h1><br>
-        <h4 style="color:#FA5858;">BUSCAR LÁMINA POR NOMBRE</h4>
-        <div style="padding-left:40%;">
-        <input type="text" id="formulario" class="form-control my-2" style="width:300px;">
+    <section class="home-slider ftco-degree-bg">
+      <div class="slider-item">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text align-items-center justify-content-center">
+            <div class="col-md-10 ftco-animate text-center">
+              <h1 class="mb-4">Bienvenido 
+                <strong class="typewrite" data-period="4000" data-type='[ "Misael.", "Julio.", "Jefferson."]'>
+                  <span class="wrap"></span>
+                </strong>
+              </h1>
+              <p>Plataformas Web</p>
+              </div>
+          </div>
         </div>
-        </div>
-        <div>
-          <ul>
-          </ul>
-        </div>
-    </div>
-
-
-<center>
-  
-
-      <a href="about">
-        <div id="button-container">
-        <div id="button" class="green">
-          <div id="order"><div id="order-line"></div><div id="order-line"></div></div>
-          <p>Nueva Lámina</p>
-        </div>
-      </a>  
+      </div>
+    </section>
 
     
-      </div>
-      <div style="text-align:center;width:80%;font-size:30px;">
-        <br>
-        
-      <table id="resultado" class="table table-dark" style="border-radius: 30px;";>
-      </table>
 
-        
-      
-      </div>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+    <section class="ftco-section ftco-degree-bg">
+      <div class="container">
+        <div class="row justify-content-center mb-5 pb-5">
+          <div class="col-md-7 text-center heading-section ftco-animate">
+            <span class="subheading">Laminas</span>
+            <h2>Buscar Lamina por nombre</h2>
+            <div class="form-group" style="padding-left">
+                <input type="text" id="formulario" class="form-control" placeholder="Ingrese el Nombre de la Lamina">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" style="padding-center">
+            
+             <table id="resultado" class="table">
+            </table>
+            
+            </div>
+            
 
-    </center>  
-
-<script>
-
-
+            <script>
 const id = '{{#each datos.laminas }} {{ this._id }}, {{/each}}';
 const numero = '{{#each datos.laminas }} {{ this.numero }}, {{/each}}';
 const nombres = '{{#each datos.laminas }} {{ this.nombre }}, {{/each}}';
@@ -85,14 +77,17 @@ const filtrar = () => {
     const texto = formulario.value.toLowerCase();
 
     resultado.innerHTML += `
-            <tr style="color:darkorange">
-              <td>Nº Lamina</td>
-              <td>Nombre</td>
-              <td>Nº Sección</td>
-              <td>Sección</td>
-              <td>Stock</td>
-              <td>Opciones</td>
-            </tr>
+           
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">Nº</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Nº Sección</th>
+                <th scope="col">Seccion</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Opciones</th>
+                </tr>
+            </thead>
     
     `;
     for (let producto of productos) {
@@ -101,29 +96,31 @@ const filtrar = () => {
             vacio = 1;
             resultado.innerHTML += ` 
 
-          <tr>
-            <td>${producto.numero}</td>
-            <td>${producto.nombre}</td>
-            <td>${producto.numero_seccion}</td>
-            <td>${producto.seccion}</td>
-            <td>${producto.stock}</td>
-            <td>
+        <tbody>
+             <tr>
+             <th scope="row">${producto.numero}</th>
+                 <td>${producto.nombre}</td>
+                 <td>${producto.numero_seccion}</td>
+                 <td>${producto.seccion}</td>
+                 <td>${producto.stock}</td>
+                 <td>
                 <input id="ide" type="hidden" value="${ producto.id }">
-                <a  class="btn btn-outline-danger"  style="text-align:center;width:50px;font-size:20px;" onclick="alerta('eliminar?ide=${producto.id}');" ><img src="assets/img/basura.png" width="30" height="40"></a>
-                <a  class="btn btn-outline-warning" style="text-align:center;width:50px;font-size:20px;"href="modificar?ide=${ producto.id }"><img src="assets/img/edit.png" width="30" height="40"></a>
+                <a  class="btn btn-outline-danger"  style="text-align:center;width:50px;font-size:20px;" onclick="alerta('eliminar?ide=${producto.id}');" ><img src="assets/images/basura.png" width="30" height="40"></a>
+                <a  class="btn btn-outline-warning" style="text-align:center;width:50px;font-size:20px;"href="modificar?ide=${ producto.id }"><img src="assets/images/edit.png" width="30" height="40"></a>
             </td>
-          </tr>
+             </tr>
+        </tbody>
           `
+
+          
 
         }
     }
     if (vacio === 0) {
         resultado.innerHTML = `
-        <tr> 
-          <td colspan="4">
+        <h2>
           Lámina no encontrada ...
-          </td>
-          </tr>
+        </h2> 
       `
     }
 }
@@ -133,5 +130,7 @@ formulario.addEventListener('keyup', filtrar)
 filtrar();
   
 </script>
-      
+        </div>
+      </div>
+    </section>
 {{> foder }}

@@ -1,19 +1,30 @@
 {
-    "name": "06-webservice",
-    "version": "1.0.0",
-    "description": "",
-    "main": "app.js",
-    "scripts": {
-        "start": "node server.js",
-        "nodemon": "nodemon server.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "axios": "^0.19.2",
-        "express": "^4.17.1",
-        "hbs": "^4.0.6",
-        "https": "^1.0.0"
-    }
+  "name": "06-webservice",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js",
+    "nodemon": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "hbs": "^4.0.6",
+    "https": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JulioSarauz/Bazar-FrondEnd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JulioSarauz/Bazar-FrondEnd/issues"
+  },
+  "homepage": "https://github.com/JulioSarauz/Bazar-FrondEnd#readme",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
